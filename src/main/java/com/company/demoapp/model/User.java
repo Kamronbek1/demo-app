@@ -1,8 +1,10 @@
 package com.company.demoapp.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,19 +21,19 @@ public class User {
     private String email;
     private Long phone;
     private Integer status;
-    private Date dob;
-    private Timestamp dt;
-
+    private LocalDate dob;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime dt;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Card> cards = new ArrayList<>();
 
-    public User(String fio, String email, Long phone, Integer status, Date dob, Timestamp dt) {
+    public User(String fio, String email, Long phone, Integer status, LocalDate dob) {
         this.fio = fio;
         this.email = email;
         this.phone = phone;
         this.status = status;
         this.dob = dob;
-        this.dt = dt;
     }
 
     public User() {
@@ -77,19 +79,19 @@ public class User {
         this.status = status;
     }
 
-    public Date getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
     }
 
-    public Timestamp getDt() {
+    public LocalDateTime getDt() {
         return dt;
     }
 
-    public void setDt(Timestamp dt) {
+    public void setDt(LocalDateTime dt) {
         this.dt = dt;
     }
 

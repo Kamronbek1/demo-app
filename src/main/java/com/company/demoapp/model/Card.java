@@ -2,8 +2,10 @@ package com.company.demoapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,10 +24,13 @@ public class Card {
     private String cardNumber;
     private String cardExpire;
     private String cardName;
-    private String cardType;
+    @Enumerated(EnumType.STRING)
+    private CardType cardType;
     private Long balance;
     private Integer status;
-    private Timestamp dt;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime dt;
 
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CardTransaction> transactions = new ArrayList<>();
@@ -33,7 +38,7 @@ public class Card {
     public Card() {
     }
 
-    public Card(User user, String cardNumber, String cardExpire, String cardName, String cardType, Long balance, Integer status, Timestamp dt) {
+    public Card(User user, String cardNumber, String cardExpire, String cardName, CardType cardType, Long balance, Integer status) {
         this.user = user;
         this.cardNumber = cardNumber;
         this.cardExpire = cardExpire;
@@ -41,7 +46,6 @@ public class Card {
         this.cardType = cardType;
         this.balance = balance;
         this.status = status;
-        this.dt = dt;
     }
 
     public Long getId() {
@@ -84,11 +88,11 @@ public class Card {
         this.cardName = cardName;
     }
 
-    public String getCardType() {
+    public CardType getCardType() {
         return cardType;
     }
 
-    public void setCardType(String cardType) {
+    public void setCardType(CardType cardType) {
         this.cardType = cardType;
     }
 
@@ -108,11 +112,11 @@ public class Card {
         this.status = status;
     }
 
-    public Timestamp getDt() {
+    public LocalDateTime getDt() {
         return dt;
     }
 
-    public void setDt(Timestamp dt) {
+    public void setDt(LocalDateTime dt) {
         this.dt = dt;
     }
 

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceIml implements UserService {
+public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     private final CardRepository cardRepository;
@@ -21,9 +21,9 @@ public class UserServiceIml implements UserService {
     private final CardTransactionRepository cardTransactionRepository;
 
     @Autowired
-    public UserServiceIml(UserRepository userRepository,
-                          CardRepository cardRepository,
-                          CardTransactionRepository cardTransactionRepository) {
+    public UserServiceImpl(UserRepository userRepository,
+                           CardRepository cardRepository,
+                           CardTransactionRepository cardTransactionRepository) {
         this.userRepository = userRepository;
         this.cardRepository = cardRepository;
         this.cardTransactionRepository = cardTransactionRepository;

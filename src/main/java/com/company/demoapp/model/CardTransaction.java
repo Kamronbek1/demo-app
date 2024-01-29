@@ -2,8 +2,10 @@ package com.company.demoapp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 // CardTransaction Entity
 @Entity
@@ -20,22 +22,23 @@ public class CardTransaction {
     @ManyToOne
     @JoinColumn(name = "card_id")
     private Card card;
-
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
     private Long amount;
     private Long oldBalance;
     private Long newBalance;
-    private Timestamp dt;
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime dt;
 
 
-    public CardTransaction(User user, Card card, String type, Long amount, Long oldBalance, Long newBalance, Timestamp dt) {
+    public CardTransaction(User user, Card card, TransactionType type, Long amount, Long oldBalance, Long newBalance) {
         this.user = user;
         this.card = card;
         this.type = type;
         this.amount = amount;
         this.oldBalance = oldBalance;
         this.newBalance = newBalance;
-        this.dt = dt;
     }
 
     public CardTransaction() {
@@ -65,11 +68,11 @@ public class CardTransaction {
         this.card = card;
     }
 
-    public String getType() {
+    public TransactionType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TransactionType type) {
         this.type = type;
     }
 
@@ -97,11 +100,11 @@ public class CardTransaction {
         this.newBalance = newBalance;
     }
 
-    public Timestamp getDt() {
+    public LocalDateTime getDt() {
         return dt;
     }
 
-    public void setDt(Timestamp dt) {
+    public void setDt(LocalDateTime dt) {
         this.dt = dt;
     }
 }
